@@ -27,8 +27,16 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  // throw new Error('Not implemented');
+  if (num % 3 === 0 && num % 5 === 0) {
+    return 'FizzBuzz';
+  } if (num % 3 === 0) {
+    return 'Fizz';
+  } if (num % 5 === 0) {
+    return 'Buzz';
+  }
+  return num;
 }
 
 
@@ -43,8 +51,13 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  // throw new Error('Not implemented');
+  let res = 1;
+  for (let i = 1; i <= n; i += 1) {
+    res *= i;
+  }
+  return res;
 }
 
 
@@ -60,8 +73,13 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  // throw new Error('Not implemented');
+  let res = 0;
+  for (let i = n1; i <= n2; i += 1) {
+    res += i;
+  }
+  return res;
 }
 
 
@@ -80,8 +98,9 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  // throw new Error('Not implemented');
+  return (a + b > c) && (a + c > b) && (b + c > a);
 }
 
 
@@ -117,8 +136,17 @@ function isTriangle(/* a, b, c */) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  // throw new Error('Not implemented');
+  const minAx = rect1.top;
+  const minAy = rect1.left;
+  const maxAx = rect1.width + rect1.top;
+  const maxAy = rect1.height + rect1.left;
+  const minBx = rect2.top;
+  const minBy = rect2.left;
+  const maxBx = rect2.width + rect2.top;
+  const maxBy = rect2.height + rect2.left;
+  return maxAx >= minBx && minAx <= maxBx && minAy <= maxBy && maxAy >= minBy;
 }
 
 
@@ -148,8 +176,13 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  // throw new Error('Not implemented');
+  const circlex = circle.center.x;
+  const circley = circle.center.y;
+  const r = circle.radius;
+  const { x, y } = point;
+  return (Math.sqrt((x - circlex) ** 2 + (y - circley) ** 2) < r);
 }
 
 
@@ -164,17 +197,26 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  // throw new Error('Not implemented');
+  let res = null;
+  for (let i = 0; i < str.length; i += 1) {
+    if ((str.indexOf(str[i]) === i)
+    && (str.lastIndexOf(str[i]) === i)) {
+      res = str[i];
+      break;
+    }
+  }
+  return res;
 }
 
 
 /**
- * Returns the string representation of math interval,
- * specified by two points and include / exclude flags.
- * See the details: https://en.wikipedia.org/wiki/Interval_(mathematics)
- *
- * Please take attention, that the smaller number should be the first in the notation
+   * Returns the string representation of math interval,
+   * specified by two points and include / exclude flags.
+   * See the details: https://en.wikipedia.org/wiki/Interval_(mathematics)
+   *
+   * Please take attention, that the smaller number should be the first in the notation
  *
  * @param {number} a
  * @param {number} b
@@ -191,8 +233,13 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  // throw new Error('Not implemented');
+  const StartIncluded = isStartIncluded === true ? '[' : '(';
+  const EndIncluded = isEndIncluded === true ? ']' : ')';
+  const NumberF = a > b ? b : a;
+  const NumberEnd = a > b ? a : b;
+  return `${StartIncluded}${NumberF}, ${NumberEnd}${EndIncluded}`;
 }
 
 
@@ -225,8 +272,9 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  // throw new Error('Not implemented');
+  return Number(num.toString().split('').reverse().join(''));
 }
 
 

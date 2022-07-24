@@ -87,8 +87,13 @@ function getPolynom(...arg) {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  // throw new Error('Not implemented');
+  let count;
+  return function t() {
+    count = count === undefined ? func() : count;
+    return count;
+  };
 }
 
 
@@ -107,8 +112,20 @@ function memoize(/* func */) {
  * }, 2);
  * retryer() => 2
  */
-function retry(/* func, attempts */) {
-  throw new Error('Not implemented');
+function retry(func, attempts) {
+  // throw new Error('Not implemented');
+  const f = (myf, myatt) => () => {
+    let atts = 0;
+    while (atts < myatt) {
+      try {
+        return myf();
+      } catch (error) {
+        atts += 1;
+      }
+    }
+    return 0;
+  };
+  return f(func, attempts);
 }
 
 
@@ -127,7 +144,7 @@ function retry(/* func, attempts */) {
  *
  * @example
  *
- * const cosLogger = logger(Math.cos, console.log);
+ * const cosLogger = logger(Math.cos, console.log)(Math.PI);
  * const result = cosLogger(Math.PI));     // -1
  *
  * log from console.log:
@@ -135,10 +152,35 @@ function retry(/* func, attempts */) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  // throw new Error('Not implemented');
+  const r = (fu, log) => (...e) => {
+    const h = e.map((value) => JSON.stringify(value)).join(',');
+    console.log(h);
+    log(`${fu.name}(${h}) starts`);
+    const a = fu(e);
+    log(`${fu.name}(${h}) ends`);
+    console.log(a);
+    return a;
+  };
+  return r(func, logFunc);
 }
 
+// function retry(func, attempts) {
+//   // throw new Error('Not implemented');
+//   const f = (myf, myatt) => () => {
+//     let atts = 0;
+//     while (atts < myatt) {
+//       try {
+//         return myf();
+//       } catch (error) {
+//         atts += 1;
+//       }
+//     }
+//     return 0;
+//   };
+//   return f(func, attempts);
+// }
 
 /**
  * Return the function with partial applied arguments
