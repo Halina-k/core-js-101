@@ -164,21 +164,6 @@ function logger(func, logFunc) {
   return r(func, logFunc);
 }
 
-// function retry(func, attempts) {
-//   // throw new Error('Not implemented');
-//   const f = (myf, myatt) => () => {
-//     let atts = 0;
-//     while (atts < myatt) {
-//       try {
-//         return myf();
-//       } catch (error) {
-//         atts += 1;
-//       }
-//     }
-//     return 0;
-//   };
-//   return f(func, attempts);
-// }
 
 /**
  * Return the function with partial applied arguments
